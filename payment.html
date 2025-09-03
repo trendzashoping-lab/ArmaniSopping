@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armani - 订单确认</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 顶部导航 */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-image {
+            height: 32px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .secure-checkout {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #4caf50;
+        }
+        
+        /* 进度指示器 */
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+        
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 8px;
+            z-index: 2;
+        }
+        
+        .step-number.active {
+            background-color: #ff6b00;
+        }
+        
+        .step-number.completed {
+            background-color: #4caf50;
+        }
+        
+        .step-label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .step-label.active {
+            color: #ff6b00;
+            font-weight: 600;
+        }
+        
+        .progress-connector {
+            position: absolute;
+            top: 18px;
+            left: 50px;
+            width: 80px;
+            height: 2px;
+            background-color: #e0e0e0;
+            z-index: 1;
+        }
+        
+        .progress-connector.completed {
+            background-color: #4caf50;
+        }
+        
+        /* 主要内容区域 */
+        .checkout-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .order-details {
+            flex: 7;
+        }
+        
+        .order-summary {
+            flex: 3;
+        }
+        
+        .section-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #222;
+        }
+        
+        /* 商品详情 */
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .product-item {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .product-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .product-info {
+            flex-grow: 1;
+        }
+        
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .product-description {
+            color: #666;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            color: #222;
+        }
+        
+        .product-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .quantity-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .quantity-value {
+            font-weight: 600;
+        }
+        
+        /* 订单摘要 */
+        .price-breakdown {
+            margin-bottom: 20px;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .price-label {
+            color: #666;
+        }
+        
+        .price-value {
+            font-weight: 500;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        /* 联系客服按钮 */
+        .contact-button {
+            width: 100%;
+            padding: 16px;
+            background: #25D366; /* WhatsApp绿色 */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .contact-button:hover {
+            background: #128C7E;
+            color: #fff;
+        }
+        
+        /* 安全徽章 */
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .badge-icon {
+            font-size: 24px;
+            color: #4caf50;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .checkout-container {
+                flex-direction: column;
+            }
+            
+            .progress-steps {
+                gap: 40px;
+            }
+            
+            .progress-connector {
+                width: 40px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .progress-steps {
+                gap: 20px;
+            }
+            
+            .progress-connector {
+                width: 20px;
+            }
+            
+            .step-label {
+                font-size: 12px;
+            }
+            
+            .product-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .product-image {
+                align-self: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航 -->
+        <div class="top-nav">
+            <div class="logo">
+                <img src="https://i.postimg.cc/wjHqs42m/Armani-logo-black.jpg" alt="Armani Logo" class="logo-image">
+                <span class="logo-text">ARMANI</span>
+            </div>
+            <div class="secure-checkout">
+                <i class="fas fa-lock"></i>
+                <span>安全支付</span>
+            </div>
+        </div>
+        
+        <!-- 进度指示器 -->
+        <div class="progress-container">
+            <div class="progress-steps">
+                <div class="progress-step">
+                    <div class="step-number completed">1</div>
+                    <div class="step-label">购物车</div>
+                </div>
+                <div class="progress-connector completed"></div>
+                <div class="progress-step">
+                    <div class="step-number completed">2</div>
+                    <div class="step-label">配送信息</div>
+                </div>
+                <div class="progress-connector completed"></div>
+                <div class="progress-step">
+                    <div class="step-number active">3</div>
+                    <div class="step-label active">订单确认</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="checkout-container">
+            <!-- 商品详情部分 -->
+            <div class="order-details">
+                <div class="section-card">
+                    <h2 class="section-title">订单详情</h2>
+                    <div class="product-details" id="productDetails">
+                        <!-- 商品详情将动态生成 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 订单摘要 -->
+            <div class="order-summary">
+                <div class="section-card">
+                    <h2 class="section-title">订单摘要</h2>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span class="price-label">商品小计</span>
+                            <span class="price-value" id="subtotal">RM 0.00</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price-label">运费</span>
+                            <span class="price-value">RM 5.00</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price-label">税费</span>
+                            <span class="price-value">RM 0.00</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price-label">折扣</span>
+                            <span class="price-value" style="color: #4caf50;">-RM 0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="total-row">
+                        <span>总计</span>
+                        <span id="orderTotal">RM 0.00</span>
+                    </div>
+                    
+                    <a href="https://wa.me/601128239705" class="contact-button" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Customer Service
+                    </a >
+                </div>
+                
+                <!-- 客户支持 -->
+                <div class="section-card">
+                    <h2 class="section-title">HELP？</h2>
+                    <p style="margin-bottom: 16px; color: #666;">如果您在购买过程中遇到任何问题，请联系我们的客户支持团队。</p >
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <i class="fas fa-phone" style="color: #ff6b00;"></i>
+                        <span>+60 11-2823 9705</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                        <span>WhatsApp客服</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 安全徽章 -->
+        <div class="security-badges">
+            <div class="badge">
+                <i class="fas fa-lock badge-icon"></i>
+                <span>安全支付</span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-shield-alt badge-icon"></i>
+                <span>数据加密</span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-user-shield badge-icon"></i>
+                <span>隐私保护</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 从localStorage获取购物车数据
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartTotal = localStorage.getItem('cartTotal') || 0;
+        
+        // 显示商品详情
+        const productDetails = document.getElementById('productDetails');
+        const subtotal = document.getElementById('subtotal');
+        const orderTotal = document.getElementById('orderTotal');
+        
+        function renderProductDetails() {
+            productDetails.innerHTML = '';
+            
+            if (cartItems.length === 0) {
+                productDetails.innerHTML = '<p>您的购物车是空的</p >';
+                return;
+            }
+            
+            cartItems.forEach(item => {
+                const productItem = document.createElement('div');
+                productItem.className = 'product-item';
+                productItem.innerHTML = `
+                    <img src="${item.images[0]}" alt="${item.name}" class="product-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%22%20height%3D%22100%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17adec9bcc4%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17adec9bcc4%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2237%22%20y%3D%2255%22%3EArmani%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'">
+                    <div class="product-info">
+                        <div class="product-name">${item.name}</div>
+                        <div class="product-description">${item.description}</div>
+                        <div class="product-price">单价: RM ${item.price.toFixed(2)}</div>
+                        <div class="product-quantity">
+                            <span class="quantity-label">数量:</span>
+                            <span class="quantity-value">${item.quantity}</span>
+                        </div>
+                        <div class="product-price">小计: RM ${(item.price * item.quantity).toFixed(2)}</div>
+                    </div>
+                `;
+                
+                productDetails.appendChild(productItem);
+            });
+            
+            // 计算小计和总计
+            const shipping = 5.00;
+            const total = parseFloat(cartTotal) + shipping;
+            
+            subtotal.textContent = `RM ${parseFloat(cartTotal).toFixed(2)}`;
+            orderTotal.textContent = `RM ${total.toFixed(2)}`;
+        }
+        
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', renderProductDetails);
+    </script>
+</body>
+</html>

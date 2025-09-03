@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armani Original Online Shop - Luxury Lingerie Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* 控制Logo和文字之间的间距 */
+        }
+
+        .logo-image {
+            height: 60px; /* 调整Logo图片高度，与文字大小匹配 */
+            width: auto;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #d4af37;
+            margin-left: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #d4af37;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #d4af37;
+            color: #000;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* 主内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #d4af37;
+        }
+        
+        /* 商品网格 */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        
+        /* 商品图片轮播区域 */
+        .product-carousel {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+        }
+        
+        .carousel-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .carousel-btn.prev {
+            left: 10px;
+        }
+        
+        .carousel-btn.next {
+            right: 10px;
+        }
+        
+        .product-carousel:hover .carousel-btn {
+            opacity: 1;
+        }
+        
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .carousel-dot.active {
+            background: #fff;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #c00;
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: #d4af37;
+            color: #000;
+        }
+        
+        /* 购物车侧边栏 */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image-container {
+            width: 70px;
+            height: 70px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .cart-item-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: #c00;
+            font-weight: 700;
+        }
+        
+        .remove-item {
+            color: #999;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            align-self: flex-start;
+        }
+        
+        .cart-total {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #eee;
+        }
+        
+        .contact-btn {
+            width: 100%;
+            padding: 12px;
+            background: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: background 0.3s;
+            text-align: center;
+            display: block;
+           text-decoration: none;
+        }
+
+        .contact-btn:hover {
+           background: #c19b2a;
+           color: #000;
+           text-decoration: none;
+        }
+        
+        /* 覆盖层 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* 添加媒体查询，针对移动设备优化 */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .product-carousel {
+                height: 160px;
+            }
+            
+            .product-info {
+                padding: 10px;
+            }
+            
+            .product-name {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            
+            .product-description {
+                font-size: 12px;
+                height: 36px;
+                margin-bottom: 8px;
+            }
+            
+            .product-price {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+            
+            .add-to-cart {
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            /* 导航栏优化 */
+            nav ul li {
+                margin: 0 8px;
+            }
+            
+            nav ul li a {
+                font-size: 14px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            /* 购物车侧边栏在移动设备上的优化 */
+            .cart-sidebar {
+                width: 300px;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .cart-item-image-container {
+                margin-right: 0;
+                margin-bottom: 10px;
+                width: 100%;
+                height: 100px;
+            }
+            
+            /* 移动端轮播按钮始终可见 */
+            .carousel-btn {
+                opacity: 0.7;
+            }
+        }
+
+        /* 针对更小屏幕的优化 */
+        @media (max-width: 480px) {
+            .products-grid {
+                gap: 10px;
+            }
+            
+            .product-carousel {
+                height: 140px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 5px;
+            }
+            
+            header {
+                padding: 10px 3%;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <!-- 导航栏 -->
+    <header>
+        <div class="logo">
+            <img src="https://i.postimg.cc/wjHqs42m/Armani-logo-black.jpg" alt="Armani Logo" class="logo-image">
+            <h1>ARMANI</h1>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href=" ">First Page</a ></li>
+            </ul>
+        </nav>
+        
+        <div class="cart-icon" id="cartIcon">
+            <i class="fas fa-shopping-cart fa-lg"></i>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
+    
+    <!-- 主内容区域 -->
+    <div class="container">
+        <h2 class="page-title">Armani Wonmen's Lingerie Collection</h2>
+        
+        <div class="products-grid" id="productsGrid">
+            <!-- 商品将通过JavaScript动态生成 -->
+        </div>
+    </div>
+    
+    <!-- 购物车侧边栏 -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">Your Cart</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <!-- 购物车项目将动态生成 -->
+            <p class="empty-cart-message" id="emptyCartMsg">Your Cart Is Empty</p >
+        </div>
+        
+        <div class="cart-total">
+            Total: RM <span id="cartTotal">0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn">Payment</button>
+    </div>
+    
+    <!-- 覆盖层 -->
+    <div class="overlay" id="overlay"></div>
+    
+    <script>
+        // 商品数据 - Armani女性内衣系列（每个商品有多张图片）
+        const products = [
+            {
+                id: 1,
+                name: "Armani Front-Closure Bra",
+                description: "Elegant and convenient front-closure design, offering comfort and easy wear. Perfect for daily use.",
+                price: 882.99,
+                images: [
+                    "https://i.postimg.cc/0jKc0fkg/no1.jpg",
+                    "https://i.postimg.cc/266HVYgS/no1-1.jpg",
+                    "https://i.postimg.cc/MTF9B48b/no1-2.jpg"
+                ]
+            },
+            {
+                id: 2,
+                name: "Armani Lace Lingerie Set",
+                description: "Delicate lace with a feminine touch, soft and breathable, ideal for creating a romantic mood.",
+                price: 999.99,
+                images: [
+                    "https://i.postimg.cc/nL8jXG5j/no2.jpg",
+                    "https://i.postimg.cc/FsBJ44Vx/no2-1.jpg",
+                    "https://i.postimg.cc/QdKKNy6Z/no2-2.jpg"
+                ]
+            },
+            {
+                id: 3,
+                name: "Armani Thin Front-Closure Set",
+                description: "Lightweight and seamless design, combines elegance and comfort for all-day wear.",
+                price: 1188.99,
+                images: [
+                    "https://i.postimg.cc/DZvzGjcZ/no3.jpg",
+                    "https://i.postimg.cc/LsM596Yj/no3-1.jpg",
+                    "https://i.postimg.cc/7LM6f80d/no3-2.jpg"
+                ]
+            },
+            {
+                id: 4,
+                name: "Armani Light Lace Lingerie",
+                description: "Soft lace with a smooth feel, breathable and stylish, perfect for everyday romance.",
+                price: 1366.99,
+                images: [
+                    "https://i.postimg.cc/NjvBTCsc/no4.jpg",
+                    "https://i.postimg.cc/9Mgc7WM8/no4-1.jpg",
+                    "https://i.postimg.cc/bYMzYN4d/no4-2.jpg",
+                    "https://i.postimg.cc/zXgqyY17/no4-3.jpg"
+                ]
+            },
+            {
+                id: 5,
+                name: "Armani Strappy Sexy Lingerie",
+                description: "Chic strappy design with a daring look, adding extra charm and confidence.",
+                price: 1388.99,
+                images: [
+                    "https://i.postimg.cc/TP7PrjNJ/no5.jpg",
+                    "https://i.postimg.cc/52mytWwG/no5-1.jpg",
+                    "https://i.postimg.cc/mr2Dzpjr/no5-2.jpg"
+                ]
+            },
+            {
+                id: 6,
+                name: "Armani Sexy Double-Strap Lingerie",
+                description: "Double-strap detailing for a unique sexy style, comfortable fit with a modern edge.",
+                price: 1569.99,
+                images: [
+                    "https://i.postimg.cc/bJrsMVS5/no6.jpg",
+                    "https://i.postimg.cc/DzBSx30s/no6-1.jpg",
+                    "https://i.postimg.cc/26tVfd4S/no6-2.jpg",
+                    "https://i.postimg.cc/br2dYGTH/no6-3.jpg"
+                ]
+            },
+            {
+                id: 7,
+                name: "Armani V-Style Sexy Lingerie",
+                description: "Bold V-cut style to enhance curves, perfect for adding allure to special moments.",
+                price: 1822.99,
+                images: [
+                    "https://i.postimg.cc/PrYz2Njw/no7.jpg",
+                    "https://i.postimg.cc/Y24xLbD8/no7-1.jpg",
+                    "https://i.postimg.cc/SQwf6Cw4/no7-2.jpg"
+                ]
+            },
+            {
+                id: 8,
+                name: "Armani Leapord Print Sport Bra",
+                description: "Trendy leopard print with high support, combining fashion and function for workouts.",
+                price: 876.99,
+                images: [
+                    "https://i.postimg.cc/GhFGvNFP/no8.jpg",
+                    "https://i.postimg.cc/MK21MxQK/no8-1.jpg"
+                ]
+            },
+            {
+                id: 9,
+                name: "Armani Silk Pajama Shorts Set",
+                description: "Luxurious silk fabric, lightweight and smooth, perfect for relaxing nights and sweet dreams",
+                price: 2158.99,
+                images: [
+                    "https://i.postimg.cc/020KzSvc/no9.jpg",
+                    "https://i.postimg.cc/FzjdgdLF/no9-1.jpg",
+                    "https://i.postimg.cc/gkW6cDCx/no9-2.jpg",
+                    "https://i.postimg.cc/CMDqVtQy/no9-3.jpg"
+                ]
+            },
+            {
+                id: 10,
+                name: "Armani Light Lace Sleeper Set",
+                description: "Breathable lace sleepwear, soft against skin, creating a romantic and comfortable night.",
+                price: 2319.99,
+                images: [
+                    "https://i.postimg.cc/rsFXg7dd/no10.jpg",
+                    "https://i.postimg.cc/pTBMfPdb/no10-1.jpg"
+                ]
+            },
+            {
+                id: 11,
+                name: "Armani Leopard Front-Closure Wireless Bra Set",
+                description: "Stylish leopard print, wireless comfort with easy front closure. Fashion meets function.",
+                price: 1566.99,
+                images: [
+                    "https://i.postimg.cc/MH4PRL1J/no11.jpg",
+                    "https://i.postimg.cc/XqX1rWGg/no11-1.jpg"
+                ]
+            },
+            {
+                id: 12,
+                name: "Armani Wireless Bra",
+                description: "No steel ring, maximum comfort with natural support. Perfect for everyday wear.",
+                price: 966.99,
+                images: [
+                    "https://i.postimg.cc/1XwYT9wH/Armani.jpg"
+                ]
+            },
+            {
+                id: 13,
+                name: "Armani High-Waist Lace Panties",
+                description: "Elegant high-waist design with lace details, shaping and comfortable fit.",
+                price: 855.99,
+                images: [
+                    "https://i.postimg.cc/J48T0Cjf/Armani.jpg"
+                ]
+            },
+            {
+                id: 14,
+                name: "Armani Deep V-Neck Bra",
+                description: "Bold V-neck cut enhances cleavage, sexy yet supportive for confident wear.",
+                price: 1055.99,
+                images: [
+                    "https://i.postimg.cc/mrPjJLGH/Armani-V.webp"
+                ]
+            },
+            {
+                id: 15,
+                name: "Armani Sport Bra",
+                description: "Breathable and flexible fabric, designed for movement and high-impact workouts.",
+                price: 973.99,
+                images: [
+                    "https://i.postimg.cc/DyfqRvrw/Armani.jpg"
+                ]
+            },
+            {
+                id: 16,
+                name: "Armani Lace Sexy Panties",
+                description: "Romantic lace design with soft fabric, lightweight and irresistible.",
+                price: 769.99,
+                images: [
+                    "https://i.postimg.cc/wBDy7ZXr/Armani-3.webp"
+                ]
+            },
+            {
+                id: 17,
+                name: "Armani Camisole Sleepwear",
+                description: "Simple and elegant camisole sleepwear, soft and lightweight for comfortable nights.",
+                price: 869.99,
+                images: [
+                    "https://i.postimg.cc/SsTysfv5/p-Armani.webp"
+                ]
+            },
+            {
+                id: 18,
+                name: "Armani Sport Bra & Panties Set",
+                description: "Complete active set with comfort and support, stylish for both fitness and leisure.",
+                price: 889.99,
+                images: [
+                    "https://i.postimg.cc/02J8kmdW/Armani.webp"
+                ]
+            },
+            {
+                id: 19,
+                name: "Armani Silk Men's Briefs",
+                description: "Premium silk men’s briefs, soft touch with breathable fabric for daily comfort.",
+                price: 863.99,
+                images: [
+                    "https://i.postimg.cc/Kz41bww8/underwear-1-3.jpg",
+                    "https://i.postimg.cc/WpC9JJG5/underwear1.jpg",
+                    "https://i.postimg.cc/B6yXnNfc/underwear1-1.jpg",
+                    "https://i.postimg.cc/7h2bG7xv/underwear1-2.jpg"
+                ]
+            },
+            {
+                id: 20,
+                name: "Armani Silk Men's Boxer Shorts",
+                description: "Luxury silk boxer shorts, smooth, lightweight, and designed for maximum comfort.",
+                price: 998.99,
+                images: [
+                    "https://i.postimg.cc/jqpXjYT9/boxer.jpg",
+                    "https://i.postimg.cc/Z5cFj9Nt/boxer1.jpg",
+                    "https://i.postimg.cc/VLXFrZLN/boxer1-2.jpg",
+                    "https://i.postimg.cc/XvYKPVKZ/boxer1-3.jpg",
+                    "https://i.postimg.cc/jSK4z6L4/boxer1-4.jpg"
+                ]
+            }
+        ];
+        
+        
+        // 购物车数组
+        let cart = [];
+        
+        // DOM元素
+        const productsGrid = document.getElementById('productsGrid');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const overlay = document.getElementById('overlay');
+        const emptyCartMsg = document.getElementById('emptyCartMsg');
+        
+        // 初始化页面
+        function initPage() {
+            renderProducts();
+            updateCartUI();
+            
+            // 事件监听
+            cartIcon.addEventListener('click', openCart);
+            closeCart.addEventListener('click', closeCartSidebar);
+            overlay.addEventListener('click', closeCartSidebar);
+        }
+        
+        // 渲染商品
+        function renderProducts() {
+            productsGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                // 生成轮播图片HTML
+                let carouselHTML = `
+                    <div class="product-carousel">
+                        <div class="carousel-container" id="carousel-${product.id}">
+                `;
+                
+                product.images.forEach((img, index) => {
+                    carouselHTML += `
+                        <div class="carousel-slide">
+                            <img src="${img}" alt="${product.name} - 图片${index+1}" class="carousel-image" onerror="handleImageError(this, '${product.name}')">
+                        </div>
+                    `;
+                });
+                
+                carouselHTML += `
+                        </div>
+                        <button class="carousel-btn prev">〈</button>
+                        <button class="carousel-btn next">〉</button>
+                        <div class="carousel-dots">
+                `;
+                // 添加轮播点
+                product.images.forEach((_, index) => {
+                    carouselHTML += `<span class="carousel-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></span>`;
+                });
+                
+                carouselHTML += `
+                        </div>
+                    </div>
+                `;
+                
+                productCard.innerHTML = carouselHTML + `
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p >
+                        <div class="product-price">RM ${product.price.toFixed(2)}</div>
+                        <button class="add-to-cart" data-id="${product.id}">Add To Cart</button>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+                
+                // 初始化轮播功能
+                initCarousel(product.id, product.images.length);
+            });
+            
+            // 添加事件监听器到所有"添加到购物车"按钮
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+        
+        // 初始化轮播功能
+        function initCarousel(productId, imageCount) {
+            const container = document.getElementById(`carousel-${productId}`);
+            const prevBtn = container.parentElement.querySelector('.prev');
+            const nextBtn = container.parentElement.querySelector('.next');
+            const dots = container.parentElement.querySelectorAll('.carousel-dot');
+            
+            let currentIndex = 0;
+            
+            // 更新轮播状态
+            function updateCarousel() {
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // 更新dots状态
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            // 上一张
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + imageCount) % imageCount;
+                updateCarousel();
+            });
+            
+            // 下一张
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % imageCount;
+                updateCarousel();
+            });
+            
+            // 点击dot跳转
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    currentIndex = parseInt(dot.getAttribute('data-index'));
+                    updateCarousel();
+                });
+            });
+            
+            // 触摸滑动支持
+            let startX = 0;
+            let endX = 0;
+            
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+            
+            container.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const diffX = startX - endX;
+                
+                // 滑动距离大于50px才切换
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        // 向左滑动 - 下一张
+                        currentIndex = (currentIndex + 1) % imageCount;
+                    } else {
+                        // 向右滑动 - 上一张
+                        currentIndex = (currentIndex - 1 + imageCount) % imageCount;
+                    }
+                    updateCarousel();
+                }
+            }
+        }
+        
+        // 图片加载错误处理
+        function handleImageError(img, productName) {
+            console.log(`图片加载失败: ${productName}`);
+            // 使用SVG作为备用图片
+            img.src = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17adec9bcc4%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17adec9bcc4%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.4296875%22%20y%3D%22104.5%22%3EArmani%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E";
+            img.alt = `${productName} - 图片加载失败`;
+        }
+        
+                // 添加到购物车
+        function addToCart(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+            
+            // 检查商品是否已在购物车中
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            updateCartUI();
+            
+            // 显示添加反馈
+            e.target.textContent = "Add!";
+            setTimeout(() => {
+                e.target.textContent = "Add To Cart";
+            }, 1500);
+        }
+        
+        // 更新购物车UI
+        function updateCartUI() {
+            // 更新购物车数量
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // 更新购物车侧边栏
+            renderCartItems();
+            
+            // 更新总价
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = total.toFixed(2);
+        }
+        
+        // 渲染购物车项目
+        function renderCartItems() {
+            if (cart.length === 0) {
+                emptyCartMsg.style.display = 'block';
+                cartItems.innerHTML = '';
+                cartItems.appendChild(emptyCartMsg);
+                return;
+            }
+            
+            emptyCartMsg.style.display = 'none';
+            cartItems.innerHTML = '';
+            
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-image-container">
+                        <img src="${item.images[0]}" alt="${item.name}" class="cart-item-image" onerror="handleImageError(this, '${item.name}')">
+                    </div>
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-name">${item.name}</h4>
+                        <div class="cart-item-price">RM ${item.price.toFixed(2)} x ${item.quantity}</div>
+                    </div>
+                    <button class="remove-item" data-id="${item.id}">&times;</button>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            // 添加事件监听器到所有删除按钮
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', removeFromCart);
+            });
+        }
+        
+        // 从购物车移除商品
+        function removeFromCart(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+        
+        // 打开购物车
+        function openCart() {
+            cartSidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 关闭购物车
+        function closeCartSidebar() {
+            cartSidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // 获取付款按钮
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        // 付款按钮点击事件
+        checkoutBtn.addEventListener('click', function() {
+            // 将购物车数据保存到localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cart));
+            localStorage.setItem('cartTotal', calculateTotal());
+    
+            // 跳转到支付页面
+            window.location.href = 'payment.html';
+        });
+
+        // 计算总价函数
+        function calculateTotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        }
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
