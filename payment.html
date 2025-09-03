@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Armani - 订单确认</title>
+    <title>Armani - Order Confirmation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -337,7 +337,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- 顶部导航 -->
+        <!-- Top Navigation -->
         <div class="top-nav">
             <div class="logo">
                 <img src="https://i.postimg.cc/wjHqs42m/Armani-logo-black.jpg" alt="Armani Logo" class="logo-image">
@@ -345,7 +345,7 @@
             </div>
             <div class="secure-checkout">
                 <i class="fas fa-lock"></i>
-                <span>安全支付</span>
+                <span>Secure Payment</span>
             </div>
         </div>
         
@@ -354,17 +354,17 @@
             <div class="progress-steps">
                 <div class="progress-step">
                     <div class="step-number completed">1</div>
-                    <div class="step-label">购物车</div>
+                    <div class="step-label">My Cart</div>
                 </div>
                 <div class="progress-connector completed"></div>
                 <div class="progress-step">
                     <div class="step-number completed">2</div>
-                    <div class="step-label">配送信息</div>
+                    <div class="step-label">Delivery Information</div>
                 </div>
                 <div class="progress-connector completed"></div>
                 <div class="progress-step">
                     <div class="step-number active">3</div>
-                    <div class="step-label active">订单确认</div>
+                    <div class="step-label active">Order Confirmation</div>
                 </div>
             </div>
         </div>
@@ -373,7 +373,7 @@
             <!-- 商品详情部分 -->
             <div class="order-details">
                 <div class="section-card">
-                    <h2 class="section-title">订单详情</h2>
+                    <h2 class="section-title">Order Details</h2>
                     <div class="product-details" id="productDetails">
                         <!-- 商品详情将动态生成 -->
                     </div>
@@ -383,29 +383,29 @@
             <!-- 订单摘要 -->
             <div class="order-summary">
                 <div class="section-card">
-                    <h2 class="section-title">订单摘要</h2>
+                    <h2 class="section-title">Order Summary</h2>
                     
                     <div class="price-breakdown">
                         <div class="price-row">
-                            <span class="price-label">商品小计</span>
+                            <span class="price-label">Item Subtotal</span>
                             <span class="price-value" id="subtotal">RM 0.00</span>
                         </div>
                         <div class="price-row">
-                            <span class="price-label">运费</span>
-                            <span class="price-value">RM 5.00</span>
+                            <span class="price-label">Delivery Fee</span>
+                            <span class="price-value">RM 20.00</span>
                         </div>
                         <div class="price-row">
-                            <span class="price-label">税费</span>
+                            <span class="price-label">Tax</span>
                             <span class="price-value">RM 0.00</span>
                         </div>
                         <div class="price-row">
-                            <span class="price-label">折扣</span>
+                            <span class="price-label">Discount</span>
                             <span class="price-value" style="color: #4caf50;">-RM 0.00</span>
                         </div>
                     </div>
                     
                     <div class="total-row">
-                        <span>总计</span>
+                        <span>Total</span>
                         <span id="orderTotal">RM 0.00</span>
                     </div>
                     
@@ -418,14 +418,14 @@
                 <!-- 客户支持 -->
                 <div class="section-card">
                     <h2 class="section-title">HELP？</h2>
-                    <p style="margin-bottom: 16px; color: #666;">如果您在购买过程中遇到任何问题，请联系我们的客户支持团队。</p >
+                    <p style="margin-bottom: 16px; color: #666;">If you encounter any issues during your shopping, please contact our customer support team.</p >
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                         <i class="fas fa-phone" style="color: #ff6b00;"></i>
                         <span>+60 11-2823 9705</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <i class="fab fa-whatsapp" style="color: #25D366;"></i>
-                        <span>WhatsApp客服</span>
+                        <span>WhatsApp Customer Service</span>
                     </div>
                 </div>
             </div>
@@ -435,15 +435,15 @@
         <div class="security-badges">
             <div class="badge">
                 <i class="fas fa-lock badge-icon"></i>
-                <span>安全支付</span>
+                <span>Secure Payment</span>
             </div>
             <div class="badge">
                 <i class="fas fa-shield-alt badge-icon"></i>
-                <span>数据加密</span>
+                <span>Data Encryption</span>
             </div>
             <div class="badge">
                 <i class="fas fa-user-shield badge-icon"></i>
-                <span>隐私保护</span>
+                <span>Privacy Protection</span>
             </div>
         </div>
     </div>
@@ -462,7 +462,7 @@
             productDetails.innerHTML = '';
             
             if (cartItems.length === 0) {
-                productDetails.innerHTML = '<p>您的购物车是空的</p >';
+                productDetails.innerHTML = '<p>Cart Is Empty</p >';
                 return;
             }
             
@@ -474,9 +474,9 @@
                     <div class="product-info">
                         <div class="product-name">${item.name}</div>
                         <div class="product-description">${item.description}</div>
-                        <div class="product-price">单价: RM ${item.price.toFixed(2)}</div>
+                        <div class="product-price">Unit Price: RM ${item.price.toFixed(2)}</div>
                         <div class="product-quantity">
-                            <span class="quantity-label">数量:</span>
+                            <span class="quantity-label">Quantity:</span>
                             <span class="quantity-value">${item.quantity}</span>
                         </div>
                         <div class="product-price">小计: RM ${(item.price * item.quantity).toFixed(2)}</div>
